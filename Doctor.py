@@ -4,21 +4,16 @@ from model.Person import Person
 
 class Doctor(Person):
     def __init__(self, name, surname, personId, doctorId):
-        self.name = name
-        self.surname = surname
-        self.personId = personId
+        super(Doctor, self).__init__(name, surname, personId)
         self.doctorId = doctorId
-        self.patient_list = []
+        self.patient_dic= {}
 
     def getDoctorId(self):
         return self.doctorId
 
     def addPatient(self, person):
-        check_pat = []
-        for pat in self.patient_list:
-            check_pat.append(pat.personId)
-        if person.personId not in check_pat:
-            self.patient_list.append(person)
+        if person not in self.patient_dic:
+            self.patient_dic[person.personId] = person
 
     def getPatients(self):
-        return self.patient_list
+        return self.patient_dic
